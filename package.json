@@ -1,0 +1,40 @@
+{
+  "name": "skk-weather",
+  "version": "1.0.0",
+  "description": "query weather",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softkaikai/skk-weather.git"
+  },
+  "keywords": [
+    "query",
+    "weather",
+    "查询",
+    "天气"
+  ],
+  "bin": {
+    "weather": "./index.js"
+  },
+  "author": "softkaikai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/softkaikai/skk-weather/issues"
+  },
+  "homepage": "https://github.com/softkaikai/skk-weather#readme",
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "cli-table": "^0.3.1",
+    "cli-table2": "^0.2.0",
+    "getopts": "^2.2.4",
+    "node-jsonp": "^1.0.2",
+    "ora": "^3.4.0",
+    "public-ip": "^3.1.0",
+    "request": "^2.88.0",
+    "table": "^5.4.0",
+    "tty-table": "^2.7.0"
+  }
+}
