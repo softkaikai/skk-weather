@@ -1,5 +1,11 @@
 查询未来几天的天气情况  
 
+# INSTALL  
+
+```
+    npm install -g skk-weather 
+```
+
 # HOW TO USE  
 
 ```
