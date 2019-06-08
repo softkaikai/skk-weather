@@ -4,25 +4,23 @@ const chalk = require('chalk');
 const publicIp = require('public-ip');
 const jsonp = require('node-jsonp');
 const Table = require('cli-table2');
+const ora = require('ora');
 
 
 const argvs = process.argv.slice(2);
 const opts = getopts(argvs);
 
+const spinner = ora('Loading weather').start();
+
 if (opts['_'] && opts['_'][0]) {
-    console.log(opts['_'][0]);
     queryWeather(opts['_'][0]);
 } else {
     getCityForIp().then(city => {
         queryWeather(city);
     }).catch(err => {
-        console.log(err);
+        spinner.fail(err);
     })
 }
-
-// getCityForIp();
-
-
 
 async function getCityForIp() {
     ip = await publicIp.v4();
@@ -56,27 +54,27 @@ function queryWeather(city = '成都') {
         'callback',
         (json) => {
             if (json && json.data && json.data.length) {
-                console.log(json.data);
                 const table = new Table({
-                    head: ['日期', '天气', chalk.green('最低温'), chalk.red('最高温'), '空气质量', '风力'],
+                    head: ['日期', chalk.yellow('天气'), chalk.green('最低温'), chalk.red('最高温'), chalk.magenta('空气质量'), '风力'],
                     // colWidths: [15, 15, 15, 15, 15, 15],
                     chars: {'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''}
                 });
                 const weathers = json.data.map(weather => {
                     return [
                         weather.day,
-                        weather.wea,
+                        chalk.cyan(weather.wea),
                         weather.tem2,
                         weather.tem1,
                         chalk.green(weather.air_level || '良好'),
-                        chalk.green(weather.win_speed),
+                        chalk.yellow(weather.win_speed),
 
                     ]
                 });
                 table.push(...weathers);
+                spinner.succeed();
                 console.log(table.toString());
             } else {
-                console.log(chalk.red('获取天气失败'));
+                spinner.fail('获取天气失败');
             }
         }
 
